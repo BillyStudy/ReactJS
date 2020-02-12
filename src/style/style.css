@@ -4,9 +4,10 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: Poppins, Arial;
+    color: #fafafa
 }
 #container{
     background-color: #fafafa;
-    color: #222;
+    color: #fafafa;
     padding: 20px 20px 50px 50px
 }

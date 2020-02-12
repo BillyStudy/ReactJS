@@ -10,7 +10,7 @@ const header = {
     title:{
         textAlign: 'left',
         margin: 0,marginTop: 5, marginLeft: 30,
-        fontSize: 30
+        fontSize: 30,
         
     },
     slogan:{

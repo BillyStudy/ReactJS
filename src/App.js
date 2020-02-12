@@ -1,5 +1,4 @@
 import React from 'react'
-import style from  './style/style.css'
 //import Api from  './services/api'
 
 import Header from './components/Header/index'

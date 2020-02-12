@@ -5,7 +5,8 @@
     box-sizing: border-box;
     font-family: Poppins, Arial;
 }
-body{
-    background-color: #777;
-    color: #fafafa
+#container{
+    background-color: #fafafa;
+    color: #222;
+    padding: 20px 20px 50px 50px
 }

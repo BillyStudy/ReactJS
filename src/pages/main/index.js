@@ -1,58 +1,57 @@
-import React, {useState, useEffect} from 'react'
+import React, {Component} from 'react'
 //import Api from '../../services/api'
-import './style.css'
+import './style.css';
+import {Link} from 'react-router-dom';
 
 
-const Index = () => {
-    //state
-    const [users, setUsers] = useState([]); 
-    const [productsInfo, setproductsInfo] = useState({});
-    const [pages, setPages] = useState(1);
+export default class Index extends Component{
+    state={
+        users: [],
+        usersInfo: {}
+    }
+
+    componentDidMount(){
+        this.loadUsers();
+    }
+
+    loadUsers = async () => {
+        let response = await fetch(`https://api.github.com/users`); 
+        let {docs, ...usersInfo} = response;
         
-    const loadProducts = async (page = 10) => {
-        let response = await fetch(`https://randomuser.me/api/?results=${page}`);     //Api.get('/users'); 
-        let products = await response.json();
-        setUsers(products.results);
-        const { docs, ...productsInfo} = products.results;
-
-        setPages(page);
+         
+        let user = await response.json();
+        this.setState({users: user}) ;
+        //console.log(this.state.users);
+    }
+    prevPag = async () => {
+        await console.log('prev');
     }
 
-    const prevPag = async () => {
-
+    nextPag = async () => {
+        await console.log('next');
     }
 
-    const nextPag = async () => {
-        const {page, productsInfo} = setPages(pages);
 
-        if(page === productsInfo.page) return;
-
-        let pageNumber = pages;
-        loadProducts(pageNumber);
-    }
-    //mouth
-    useEffect(()=> {loadProducts()}, [])
+    render(){
         return(
             <>
-                {/* <h3> Quantidade de usuários: {users.length}</h3> */}
-                
-                {users && users.map((item) => { return <div key={item.id} id="item">
-                        <img id="itemImg" src={item.picture.large}  alt=""/>
-                        <div id="descItem">
-                            <h3 href={item.name.first}>{item.name.first} {item.name.last}</h3>
-                            <p>{item.location.state}, {item.location.country}</p>
+               
+                    {this.state.users.map(user => (
+                         <div id="item" key={user.id}>
+                            <img src={user.avatar_url} />
+                            <div id="descItem">
+                                <Link to={`users/${user.login}`} id="link">{user.login}</Link>
+                            </div>
                         </div>
-                    </div>
-
-                })}
+                    ))}
+                
+                <div id="actions">
+                    <button type="submit" onClick={this.prevPag}>Anterior</button>
+                    <button type="submit" onClick={this.nextPag}>Próximo</button>
+                </div>
+            </>
+        )
+                
         
-        <div id="actions">
-            {/* <button type="submit" onClick={prevPag}>Anterior</button>
-            <button type="submit" onClick={nextPag}>Próximo</button> */}
-        </div>
-        
-        </>
-        );
     }
-
-    export default Index;
+}

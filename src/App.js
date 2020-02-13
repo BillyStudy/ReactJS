@@ -2,9 +2,11 @@ import React from 'react'
 //import Api from  './services/api'
 
 import Header from './components/Header/index'
-import Index from './pages/main/Index'
 //Componentes
 import './style/style.css'
+
+import Routes from './routes';
+import { Route } from 'react-router-dom';
 
 function App() {
   
@@ -12,7 +14,7 @@ function App() {
     <div className="App">
         <Header page="Home" />
         <div id="container"> 
-          <Index/>
+          <Routes/>
         </div>
        
     </div>

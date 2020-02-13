@@ -7,28 +7,43 @@ import {Link} from 'react-router-dom';
 export default class Index extends Component{
     state={
         users: [],
-        usersInfo: {}
+        usersInfo: {},
+        page: 1
     }
 
     componentDidMount(){
         this.loadUsers();
     }
 
-    loadUsers = async () => {
-        let response = await fetch(`https://api.github.com/users`); 
-        let {docs, ...usersInfo} = response;
+    loadUsers = async (page) => {
+        let response = await fetch(`https://api.github.com/users?since=${page}&per_page=3`); 
         
-         
         let user = await response.json();
         this.setState({users: user}) ;
         //console.log(this.state.users);
     }
     prevPag = async () => {
-        await console.log('prev');
+        const {page} = this.state;
+
+        if(page === 1) return;
+
+        const pageNum = page - 1;
+        
+        this.loadUsers(pageNum);
+
+        this.setState({page: pageNum});
     }
 
     nextPag = async () => {
-        await console.log('next');
+        const {page, usersInfo} = this.state;
+
+        if(page === usersInfo.pages) return;
+
+        const pageNum = page + 1;
+        
+        this.loadUsers(pageNum);
+
+        this.setState({page: pageNum});
     }
 
 
